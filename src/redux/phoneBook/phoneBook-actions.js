@@ -24,4 +24,4 @@ const filterContact = (contacts) => {
     };
 };
 
-export default {addContact, deleteContact, filterContact}
+export default { addContact, deleteContact, filterContact };
