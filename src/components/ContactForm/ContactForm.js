@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import contactsActive from "../../redux/phoneBook/phoneBook-actions";
 import shortid from 'shortid';
 import styles from './ContactForm.module.css';
 import { CSSTransition } from "react-transition-group";
@@ -73,4 +75,8 @@ class ContactForm extends Component {
   }
 }
 
-export default ContactForm;
+const mapDispatchToProps = dispatch => ({
+  onSubmit: value => dispatch(contactsActive.addContact(value)),
+})
+
+export default connect(null)(ContactForm);

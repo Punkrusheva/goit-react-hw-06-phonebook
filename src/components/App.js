@@ -10,12 +10,10 @@ import "../stylesheets/animation.css";
 
 export default class App extends Component {
   state = {
-    filter: '',
-    contacts: [],
     alert: false,
     alertText: '',
   }
- 
+ /*
   componentDidMount() {
     const contacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(contacts);
@@ -31,15 +29,8 @@ export default class App extends Component {
       }
   };
 
-  handleChange = e => {
-    e.preventDefault();
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
-    this.props.onChange(this.state);
-  };
-  
   formSubmitHandler = ({ name, number }) => {
-    const afertFalse = () => {
+    const alertFalse = () => {
       this.setState(state => ({ alert: false }))};
     localStorage.getItem('contacts');
     this.contactId = shortid.generate();
@@ -51,8 +42,7 @@ export default class App extends Component {
     if (contact.name !== '') {
       if (this.state.contacts.find(contact => contact.name === name)) {
         this.setState(state => ({ alert: true, alertText: 'Contact is already exist'}));
-        console.log(this.state.alert);
-        setTimeout(afertFalse, 2500);       
+        setTimeout(alertFalse, 2500);       
       }
       else {
         this.setState(prevState => {
@@ -64,10 +54,9 @@ export default class App extends Component {
       };
     } else {
       this.setState(state => ({ alert: true, alertText: 'Contact details empty'}));
-        console.log(this.state.alert);
-        setTimeout(afertFalse, 2500); }
+        setTimeout(alertFalse, 2500); }
   };
-
+*/
   changeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
   };
@@ -89,9 +78,9 @@ export default class App extends Component {
   };
 
   render() {
-    const { contacts, filter, alert, alertText} = this.state;
+   // const { contacts, filter, alert, alertText} = this.state;
     
-    const visibleContacts = this.getVisibleContacts();
+   // const visibleContacts = this.getVisibleContacts();
 
     return (
       <Layout >
@@ -99,39 +88,39 @@ export default class App extends Component {
           onSubmit={this.formSubmitHandler}
         />
                 
-        <CSSTransition in={alert}
+        {/*<CSSTransition in={alert}
           classNames="alert"
           timeout={250}
           unmountOnExit>
           {stage => {
-            console.log(stage); console.log(alert);
             return (
               <CSSTransition
                 in={stage === 'entered'}
                 classNames="alert"
                 timeout={250}  >
-                <AlertError text={alertText}/>
+                <AlertError text={alertText} />
               </CSSTransition>)
           }}
         </CSSTransition>
 
         <CSSTransition
-            in={contacts.length > 0}
-            classNames='filter'
-            timeout={2500}
-            unmountOnExit>
-              <ContactFilter
-              onChange={this.changeFilter}
-              value={filter}>
-              </ContactFilter>
+          in={contacts.length > 0}
+          classNames='filter'
+          timeout={2500}
+          unmountOnExit>
+          <ContactFilter
+            onChange={this.changeFilter}
+            value={filter}>
+          </ContactFilter>
         </CSSTransition>
 
         {contacts.length > 0 &&
-            <ContactList
-              onRemoveContact={this.removeContact}
-              contacts={visibleContacts} />     
-        }
-        </Layout>
-    )
-  }
-}
+          <ContactList
+            onRemoveContact={this.removeContact}
+        contacts={visibleContacts} />}
+        */}
+        
+      </Layout>
+    );
+  };
+};
