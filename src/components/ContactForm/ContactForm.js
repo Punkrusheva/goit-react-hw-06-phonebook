@@ -37,7 +37,12 @@ class ContactForm extends Component {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
   };
-   
+
+   /*  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onSubmit(this.state);
+    this.reset();
+  };*/
   handleSubmit = e => {
     e.preventDefault();
 
@@ -48,18 +53,18 @@ class ContactForm extends Component {
     if (name === '') {
       this.setState(state => ({ alert: true, alertText: 'Contact details empty' }));
       setTimeout(alertFalse, 2500);
-    } else {
-      const contacts = localStorage.getItem('contacts');
+    } else { //alert('Contact is already exist')
+     /*const contacts = localStorage.getItem('contacts');
       const parsedContacts = JSON.parse(contacts);
       console.log(parsedContacts);
       if (parsedContacts.find(contact => contact.name === name)) {
         this.setState(state => ({ alert: true, alertText: 'Contact is already exist' }));
-        setTimeout(alertFalse, 2500);
+      setTimeout(alertFalse, 2500);
       }
       else {
-      
+      */
         this.props.onSubmit(this.state);
-      };
+      //};
       this.reset();
     };
   };
