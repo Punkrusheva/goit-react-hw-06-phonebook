@@ -5,6 +5,7 @@ const items = (state = [], { type , payLoad } ) => {
     switch (type) {
         case types.ADD:
             return [payLoad, ...state];
+            
            
         case types.DELETE:
             return state.filter(({ id }) => id !== payLoad);
