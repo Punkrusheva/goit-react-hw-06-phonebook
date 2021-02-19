@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
-import contactsReducer from "./phoneBook-reducer";
+import phoneBookReducer from "./phoneBook-reducer";
 
 const rootReducer = combineReducers({
-    phoneBook: contactsReducer,
+    contacts: phoneBookReducer,
 });
 
 const store = createStore(rootReducer, composeWithDevTools());

@@ -3,18 +3,16 @@ import Layout from './Layout/Layout';
 import ContactList from './ContactList/ContactList'
 import ContactForm from './ContactForm/ContactForm';
 import ContactFilter from './ContactFilter/ContactFilter';
-import AlertError from "./AlertError/AlertError";
-import shortid from 'shortid';
-import { CSSTransition } from "react-transition-group";
+//import AlertError from "./AlertError/AlertError";
+//import { CSSTransition } from "react-transition-group";
 import "../stylesheets/animation.css";
 
 export default class App extends Component {
   state = {
     alert: false,
-    alertText: '',
   }
- /*
-  componentDidMount() {
+ 
+  /*componentDidMount() {
     const contacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(contacts);
 
@@ -55,20 +53,8 @@ export default class App extends Component {
     } else {
       this.setState(state => ({ alert: true, alertText: 'Contact details empty'}));
         setTimeout(alertFalse, 2500); }
-  };
-*/
-  changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
-  };
+  };*/
    
-  removeContact = contactId => {
-    this.setState(prevState => {
-      return {
-        contacts: prevState.contacts.filter(({ id }) => id !== contactId),
-      };
-    });
-  };
-
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase().trim();
@@ -78,9 +64,7 @@ export default class App extends Component {
   };
 
   render() {
-   // const { contacts, filter, alert, alertText} = this.state;
-    
-   // const visibleContacts = this.getVisibleContacts();
+    //const { alert} = this.state;
 
     return (
       <Layout >
@@ -102,24 +86,10 @@ export default class App extends Component {
               </CSSTransition>)
           }}
         </CSSTransition>
+*/}
+          <ContactFilter/>
 
-        <CSSTransition
-          in={contacts.length > 0}
-          classNames='filter'
-          timeout={2500}
-          unmountOnExit>
-          <ContactFilter
-            onChange={this.changeFilter}
-            value={filter}>
-          </ContactFilter>
-        </CSSTransition>
-
-        {contacts.length > 0 &&
-          <ContactList
-            onRemoveContact={this.removeContact}
-        contacts={visibleContacts} />}
-        */}
-        
+          <ContactList/>
       </Layout>
     );
   };

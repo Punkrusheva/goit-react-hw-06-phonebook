@@ -1,50 +1,30 @@
 import { combineReducers } from "redux";
-import actionTypes from "./phoneBook-types";
+import types from "./phoneBook-types";
 
-const contacts = (state = [], { type, payload }) => {
-    console.log(payload);
+const items = (state = [], { type , payLoad } ) => {
     switch (type) {
-        case actionTypes.ADD: return [payload, ...state];
-           /* if (payload.name !== '') {
-                if (state.find(state => state.name === payload.name)) {
-                    /* this.setState(state => ({ alert: true, alertText: 'Contact is already exist' }));
-                     setTimeout(alertFalse, 2500);*/
-                 /*   alert("AAAAA!");
-                }
-                else {
-                    return [payload, ...state];
-                };
-                
-            } else {
-                /* this.setState(state => ({ alert: true, alertText: 'Contact details empty' }));
-                 setTimeout(alertFalse, 2500);*/
-                /*alert('BBBB!!');
-            };*/
-    
-            /*
-        case actionTypes.DELETE:
-            return {
-                ...state,
-               //items: prevState.items.filter(({ id }) => id !== contactId),
-            };*///break;
+        case types.ADD:
+            return [payLoad, ...state];
+           
+        case types.DELETE:
+            return state.filter(({ id }) => id !== payLoad);
+        
         default:
             return state;
     };
 };
 
-const filterReducer = (state = '', { type, payload }) => {
-  //  console.log(payload);
+const filter = (state = '', { type, payLoad }) => {
     switch (type) {
-        case actionTypes.FILTER:
-            return {
-               // filter: e.currentTarget.value,
-            };
+        case types.CHANGE_FILTER:
+            return payLoad;
+        
         default:
             return state;
     };
 };
 
 export default combineReducers({
-    items: contacts,
-    filter: filterReducer,
+    items,
+    filter,
 });

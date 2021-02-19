@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import contactsActive from "../../redux/phoneBook/phoneBook-actions";
+import contactsActions from '../../redux/phoneBook/phoneBook-actions'
 import shortid from 'shortid';
 import styles from './ContactForm.module.css';
 import { CSSTransition } from "react-transition-group";
@@ -10,6 +10,7 @@ class ContactForm extends Component {
   state = {
     name: '',
     number: '',
+  //  alert: false,
   };
  
   nameInputId = shortid.generate();
@@ -23,6 +24,7 @@ class ContactForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.onSubmit(this.state);
+    console.log(this.state);
     this.reset();
   };
     
@@ -75,8 +77,31 @@ class ContactForm extends Component {
   }
 }
 
+/*const mapStateToProps = ({ name, number }) => { 
+    const alertFalse = () => {
+    this.setState(state => ({ alert: false }))
+  };
+    //localStorage.getItem('contacts');
+    if (name !== '') {
+      if (contacts.items.find(item => item.name === name)) {
+        this.setState(state => ({ alert: true, alertText: 'Contact is already exist'}));
+        setTimeout(alertFalse, 2500);       
+      }
+      else {
+        this.setState(prevState => {
+          return {
+              name,
+              number,
+          }
+        });
+      };
+    } else {
+      this.setState(state => ({ alert: true, alertText: 'Contact details empty'}));
+        setTimeout(alertFalse, 2500); }
+  };*/
+
 const mapDispatchToProps = dispatch => ({
-  onSubmit: ({name, number}) => dispatch(contactsActive.addContact({name, number})),
-})
+  onSubmit: value => dispatch(contactsActions.addContact(value)),
+});
 
 export default connect(null, mapDispatchToProps)(ContactForm);
