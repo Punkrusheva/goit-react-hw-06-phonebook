@@ -1,24 +1,18 @@
-import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
-import types from "./phoneBook-types";
-import 'react-toastify/dist/ReactToastify.css';
+import { combineReducers } from "redux";
+import actions from "./phoneBook-actions";
+
+console.log(actions.addContact.type);
 
 const items = createReducer([], {
-    'contacts/add': (state, { payload }) => [payload, ...state],
+    [actions.addContact]: (state, { payload }) => [payload, ...state],
 
-    'contacts/delete': (state, { payload }) => state.filter(({ id }) => id !== payload)
+    [actions.deleteContact]: (state, { payload }) => state.filter(({ id }) => id !== payload)
 });
 
-
-const filter = (state = '', { type, payload }) => {
-    switch (type) {
-        case types.CHANGE_FILTER:
-            return payload;
-        
-        default:
-            return state;
-    };
-};
+const filter = createReducer('', {
+    [actions.changeFilter]: (_, { payload }) => payload,
+});
 
 export default combineReducers({
     items,
