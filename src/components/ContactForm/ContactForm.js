@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import contactsActions from '../../redux/phoneBook/phoneBook-actions'
+import contactsActions from '../../redux/phoneBook2/phoneBook-actions'
 import shortid from 'shortid';
 import styles from './ContactForm.module.css';
 import { CSSTransition } from "react-transition-group";
 import "../../stylesheets/animation.css";
-import AlertError from "../AlertError/AlertError";
+import { toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 class ContactForm extends Component {
   state = {
     name: '',
     number: '',
-    alert: false,
-    alertText: '',
   };
  
   nameInputId = shortid.generate();
   numberInputId = shortid.generate();
 
   /*componentDidMount() {
+    console.log('componentDidMount');
     const contacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(contacts);
+    console.log(parsedContacts);
 
     if (parsedContacts) {
       this.setState({ contacts: parsedContacts });
@@ -28,6 +29,7 @@ class ContactForm extends Component {
   };
 
   componentDidUpdate(prevState) {
+    console.log('componentDidUpdate');
     if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
       }
@@ -38,33 +40,17 @@ class ContactForm extends Component {
     this.setState({ [name]: value });
   };
 
-   /*  handleSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset();
-  };*/
   handleSubmit = e => {
     e.preventDefault();
-
-    const alertFalse = () => {
-      this.setState(state => ({ alert: false }))
-    };
     const { name } = this.state;
-    if (name === '') {
-      this.setState(state => ({ alert: true, alertText: 'Contact details empty' }));
-      setTimeout(alertFalse, 2500);
-    } else { //alert('Contact is already exist')
-     /*const contacts = localStorage.getItem('contacts');
-      const parsedContacts = JSON.parse(contacts);
-      console.log(parsedContacts);
-      if (parsedContacts.find(contact => contact.name === name)) {
-        this.setState(state => ({ alert: true, alertText: 'Contact is already exist' }));
-      setTimeout(alertFalse, 2500);
-      }
-      else {
-      */
+
+    if (name === '') {toast.error('Contact details empty');
+    } else { 
+      if (this.props.contacts.items.find(({ name }) => name === this.state.name)) {
+        toast.error('Contact is already exist');
+      } else {
         this.props.onSubmit(this.state);
-      //};
+      };
       this.reset();
     };
   };
@@ -74,8 +60,6 @@ class ContactForm extends Component {
   };
 
   render() {
-    const { alert, alertText } = this.state;
-    
     return (
       <>
         <CSSTransition
@@ -110,33 +94,19 @@ class ContactForm extends Component {
             className={styles.input}
             placeholder='Enter contact number' />
           </label>
-          
             <button type='submit' className={styles.button}>
               Add contact
             </button>
         </form>
-
-        <CSSTransition in={alert}
-          classNames="alert"
-          timeout={250}
-          unmountOnExit>
-          {stage => {
-            return (
-              <CSSTransition
-                in={stage === 'entered'}
-                classNames="alert"
-                timeout={250}  >
-                <AlertError text={alertText} />
-              </CSSTransition>)
-          }}
-        </CSSTransition>
         </>
     );
   }
-}
+};
+
+const mapStateToProps = state => ({ contacts: state.contacts });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: value => dispatch(contactsActions.addContact(value)),
+  onSubmit: (name, number) => { dispatch(contactsActions.addContact(name, number)) },
 });
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

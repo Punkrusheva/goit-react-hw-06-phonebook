@@ -4,6 +4,7 @@ import ContactList from './ContactList/ContactList'
 import ContactForm from './ContactForm/ContactForm';
 import ContactFilter from './ContactFilter/ContactFilter';
 import "../stylesheets/animation.css";
+import { ToastContainer } from "react-toastify";
 
 export default class App extends Component {
 
@@ -30,7 +31,7 @@ export default class App extends Component {
         <ContactForm/>
 
         <ContactFilter/>
-
+        <ToastContainer autoClose={2500}/>
         <ContactList />
         
       </Layout>

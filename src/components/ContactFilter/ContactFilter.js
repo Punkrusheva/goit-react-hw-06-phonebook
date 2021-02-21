@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import contactsActions from "../../redux/phoneBook/phoneBook-actions";
+import contactsActions from "../../redux/phoneBook2/phoneBook-actions";
 import styles from './ContactFilter.module.css';
-//import { CSSTransition } from "react-transition-group";
 
 const ContactFilter = ({ value, onChange }) => (
           <label
@@ -17,6 +16,7 @@ const ContactFilter = ({ value, onChange }) => (
             />
         </label>
 );
+
 const mapStateToProps = (state) => ({
   value: state.contacts.filter
 })
@@ -26,9 +26,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactFilter);
-
-/* <CSSTransition
-          in={state.contacts.items.length > 0}
-          classNames='filter'
-          timeout={2500}
-   unmountOnExit> </CSSTransition> */
